@@ -33,13 +33,21 @@ for ((i = 0; i < test_count; i++)); do
 
     output=$(./push_swap $args | ./checker_linux $args)
     moves=$(./push_swap $args | wc -l)
-    if [[ $output == *"OK"* && moves -lt 700]]; then
-        echo -e "${GREEN_BOLD}\n========> Test $i OK <========${NC}"
-        echo -e "${GREEN_BOLD}\n $moves moves <========${NC}"
+    if [[ $output == *"OK"* && $arg_count -eq 100 && $moves -lt 700 ]]; then
+        echo -e "\n${GREEN_BOLD}========> Test $i OK <========${NC}"
+        echo -e "\n${BG_GREEN}${WHITE_BOLD} $moves moves ${NC}"
+        successful_tests=$((successful_tests+1))
+    elif [[ $output == *"OK"* && $arg_count -eq 500 && $moves -lt 5500 ]]; then
+        echo -e "\n${GREEN_BOLD}========> Test $i OK <========${NC}"
+        echo -e "\n${BG_GREEN}${WHITE_BOLD} $moves moves ${NC}"
+        successful_tests=$((successful_tests+1))
+    elif [[ $output == *"OK"* && $arg_count -gt 500 ]]; then
+        echo -e "\n${GREEN_BOLD}========> Test $i OK <========${NC}"
+        echo -e "\n${BG_GREEN}${WHITE_BOLD} $moves moves ${NC}"
         successful_tests=$((successful_tests+1))
     else
-        echo -e "${RED_BOLD}\n========> Test $i KO <========${NC}"
-        echo -e "${GREEN_BOLD}\n $moves moves <========${NC}"
+        echo -e "\n${RED_BOLD}========> Test $i KO <========${NC}"
+        echo -e "\n${BG_RED}${WHITE_BOLD}$moves moves ${NC}"
     fi
 done
 
