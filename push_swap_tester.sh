@@ -32,12 +32,14 @@ for ((i = 0; i < test_count; i++)); do
     args=$(seq $min_range $max_range | shuf -n $arg_count | tr '\n' ' ')
 
     output=$(./push_swap $args | ./checker_linux $args)
-
-    if [[ $output == *"OK"* ]]; then
+    moves=$(./push_swap $args | wc -l)
+    if [[ $output == *"OK"* && moves -lt 700]]; then
         echo -e "${GREEN_BOLD}\n========> Test $i OK <========${NC}"
+        echo -e "${GREEN_BOLD}\n $moves moves <========${NC}"
         successful_tests=$((successful_tests+1))
     else
         echo -e "${RED_BOLD}\n========> Test $i KO <========${NC}"
+        echo -e "${GREEN_BOLD}\n $moves moves <========${NC}"
     fi
 done
 
