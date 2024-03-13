@@ -3,7 +3,7 @@
 #How to use it?
 
 
-```c
+```css
 argument 1: number of tests.
 argument 2: number of args.
 argument 3: min range.
